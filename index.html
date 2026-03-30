@@ -553,27 +553,27 @@ HOW IT WORKS PAGE
 <div class="timeline">
   <div class="stop" id="s0">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Nashville Distribution Center, TN</div><div class="stop-desc">Goods packed and verified. Loaded onto vehicle. Ready for dispatch on I-40 East.</div><div class="stop-ts">8:00 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Nashville Distribution Center, TN</div><div class="stop-desc">Goods packed and verified. Loaded onto vehicle. Ready for dispatch on I-40 East.</div><div class="stop-ts" id="ts0"></div></div>
   </div>
   <div class="stop" id="s1">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Lebanon, TN — I-40 Checkpoint</div><div class="stop-desc">First checkpoint cleared. Vehicle confirmed on route. ~30 mins from Nashville.</div><div class="stop-ts">8:35 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Lebanon, TN — I-40 Checkpoint</div><div class="stop-desc">First checkpoint cleared. Vehicle confirmed on route. ~30 mins from Nashville.</div><div class="stop-ts" id="ts1"></div></div>
   </div>
   <div class="stop" id="s2">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Cookeville, TN — Rest Stop</div><div class="stop-desc">Brief driver rest. Goods secured. Resuming I-40 East toward Crossville.</div><div class="stop-ts">9:30 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Cookeville, TN — Rest Stop</div><div class="stop-desc">Brief driver rest. Goods secured. Resuming I-40 East toward Crossville.</div><div class="stop-ts" id="ts2"></div></div>
   </div>
   <div class="stop" id="s3">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Crossville, TN — Midway Point</div><div class="stop-desc">Halfway checkpoint passed. On schedule. Continuing east on I-40.</div><div class="stop-ts">10:15 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Crossville, TN — Midway Point</div><div class="stop-desc">Halfway checkpoint passed. On schedule. Continuing east on I-40.</div><div class="stop-ts" id="ts3"></div></div>
   </div>
   <div class="stop" id="s4">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Harriman, TN — Final Approach</div><div class="stop-desc">Exiting I-40. Entering Roane County. Kingston is 10 minutes away.</div><div class="stop-ts">11:45 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Harriman, TN — Final Approach</div><div class="stop-desc">Exiting I-40. Entering Roane County. Kingston is 10 minutes away.</div><div class="stop-ts" id="ts4"></div></div>
   </div>
   <div class="stop" id="s5">
     <div class="stop-line"><div class="dot"></div></div>
-    <div class="stop-body"><div class="stop-name">1364 Riverbend Dr, Kingston, TN 37763</div><div class="stop-desc">Package delivered to destination. Recipient confirmed. 🎉</div><div class="stop-ts">12:05 PM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">1364 Riverbend Dr, Kingston, TN 37763</div><div class="stop-desc">Package delivered to destination. Recipient confirmed. 🎉</div><div class="stop-ts" id="ts5"></div></div>
   </div>
 </div>
 
@@ -707,6 +707,41 @@ const statuses = [
   "📦 <strong>Delivered at 1364 Riverbend Dr, Kingston, TN!</strong> Package received. 🎉"
 ];
 
+// Time offsets in minutes from departure
+const offsets = [0, 35, 90, 135, 225, 245];
+
+function formatTime(date) {
+  let h = date.getHours();
+  const m = date.getMinutes().toString().padStart(2, '0');
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${h}:${m} ${ampm} · ${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]}`;
+}
+
+function setTimestamps(startTime) {
+  offsets.forEach((offset, i) => {
+    const t = new Date(startTime.getTime() + offset * 60000);
+    const el = document.getElementById('ts' + i);
+    if (el) el.textContent = formatTime(t);
+  });
+}
+
+function resetTracker() {
+  for (let i = 0; i < 6; i++) {
+    const s = document.getElementById('s' + i);
+    s.classList.remove('done', 'active');
+  }
+  document.getElementById('pFill').style.width = '0%';
+  document.getElementById('pPct').textContent = '0%';
+  document.getElementById('sMsg').textContent = 'Initialising...';
+  document.getElementById('sBanner').classList.remove('delivered');
+  const tag = document.getElementById('liveTag');
+  tag.textContent = 'LIVE';
+  tag.className = 'badge-live';
+}
+
 function resetTracker() {
   for (let i = 0; i < 6; i++) {
     const s = document.getElementById('s' + i);
@@ -749,6 +784,11 @@ function startTracker() {
   resetTracker();
   document.getElementById('tLabel').textContent = 'TRACKING ID: ' + currentId;
   document.getElementById('shareUrl').textContent = window.location.href.split('?')[0] + '?id=' + encodeURIComponent(currentId);
+
+  // Set timestamps from NOW as departure time
+  const startTime = new Date();
+  setTimestamps(startTime);
+
   advanceStop(0);
   let step = 1;
   trackerInterval = setInterval(() => {
