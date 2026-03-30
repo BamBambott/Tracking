@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>TrackNG — Ship & Track Goods Across Nigeria</title>
+<title>TrackNG — Ship & Track Goods Across Tennessee</title>
 <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
@@ -537,7 +537,7 @@ HOW IT WORKS PAGE
 ```
 <div class="track-id-label" id="tLabel">TRACKING ID: —</div>
 <div class="shipment-name">General Goods Package</div>
-<div class="shipment-route">From <strong>Lagos</strong> &rarr; <strong>Ibadan</strong></div>
+<div class="shipment-route">From <strong>Nashville, TN</strong> &rarr; <strong>Kingston, TN</strong></div>
 
 <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
 <div class="progress-labels"><span>DEPARTURE</span><span id="pPct">0%</span><span>DELIVERED</span></div>
@@ -553,27 +553,27 @@ HOW IT WORKS PAGE
 <div class="timeline">
   <div class="stop" id="s0">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Apapa Warehouse, Lagos</div><div class="stop-desc">Goods packed and verified. Ready for dispatch.</div><div class="stop-ts">8:00 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Nashville Distribution Center, TN</div><div class="stop-desc">Goods packed and verified. Loaded onto vehicle. Ready for dispatch on I-40 East.</div><div class="stop-ts">8:00 AM · Mon 30 Mar</div></div>
   </div>
   <div class="stop" id="s1">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Ojota Motor Park, Lagos</div><div class="stop-desc">Loaded onto transport vehicle. Driver confirmed, route set.</div><div class="stop-ts">9:15 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Lebanon, TN — I-40 Checkpoint</div><div class="stop-desc">First checkpoint cleared. Vehicle confirmed on route. ~30 mins from Nashville.</div><div class="stop-ts">8:35 AM · Mon 30 Mar</div></div>
   </div>
   <div class="stop" id="s2">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Sagamu Interchange</div><div class="stop-desc">Expressway checkpoint cleared. Proceeding on Lagos–Ibadan Highway.</div><div class="stop-ts">10:40 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Cookeville, TN — Rest Stop</div><div class="stop-desc">Brief driver rest. Goods secured. Resuming I-40 East toward Crossville.</div><div class="stop-ts">9:30 AM · Mon 30 Mar</div></div>
   </div>
   <div class="stop" id="s3">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Ogere Rest Stop</div><div class="stop-desc">Short driver rest. Goods secured on vehicle.</div><div class="stop-ts">11:20 AM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Crossville, TN — Midway Point</div><div class="stop-desc">Halfway checkpoint passed. On schedule. Continuing east on I-40.</div><div class="stop-ts">10:15 AM · Mon 30 Mar</div></div>
   </div>
   <div class="stop" id="s4">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Ibadan Toll Gate</div><div class="stop-desc">Entered Ibadan. Final delivery leg in progress.</div><div class="stop-ts">12:30 PM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">Harriman, TN — Final Approach</div><div class="stop-desc">Exiting I-40. Entering Roane County. Kingston is 10 minutes away.</div><div class="stop-ts">11:45 AM · Mon 30 Mar</div></div>
   </div>
   <div class="stop" id="s5">
     <div class="stop-line"><div class="dot"></div></div>
-    <div class="stop-body"><div class="stop-name">Dugbe Delivery Point, Ibadan</div><div class="stop-desc">Package delivered. Recipient confirmed. 🎉</div><div class="stop-ts">1:05 PM · Mon 30 Mar</div></div>
+    <div class="stop-body"><div class="stop-name">1364 Riverbend Dr, Kingston, TN 37763</div><div class="stop-desc">Package delivered to destination. Recipient confirmed. 🎉</div><div class="stop-ts">12:05 PM · Mon 30 Mar</div></div>
   </div>
 </div>
 
@@ -699,12 +699,12 @@ let currentId = 'NG-2604-LOS-IBD';
 let trackerInterval = null;
 
 const statuses = [
-  "Goods dispatched from <strong>Apapa Warehouse, Lagos</strong>.",
-  "Vehicle in motion — departed <strong>Ojota Motor Park</strong>.",
-  "Checkpoint cleared at <strong>Sagamu Interchange</strong>. On the expressway.",
-  "Brief stop at <strong>Ogere</strong>. Driver resting. Back on road soon.",
-  "Entering Ibadan via <strong>Toll Gate</strong>. Almost there!",
-  "📦 <strong>Delivered at Dugbe, Ibadan!</strong> Package received. 🎉"
+  "Goods dispatched from <strong>Nashville Distribution Center, TN</strong>. On I-40 East.",
+  "First checkpoint cleared at <strong>Lebanon, TN</strong>. Vehicle confirmed on route.",
+  "Brief rest stop at <strong>Cookeville, TN</strong>. Back on I-40 shortly.",
+  "Halfway point passed at <strong>Crossville, TN</strong>. On schedule.",
+  "Approaching destination — exiting I-40 at <strong>Harriman, TN</strong>.",
+  "📦 <strong>Delivered at 1364 Riverbend Dr, Kingston, TN!</strong> Package received. 🎉"
 ];
 
 function resetTracker() {
