@@ -327,9 +327,10 @@ padding: 0;
 .shipment-name { font-family: ‘Oxanium’, monospace; font-size: 22px; font-weight: 800; color: var(–text); margin-bottom: 4px; }
 .shipment-route { font-size: 13px; color: var(–dim); margin-bottom: 16px; }
 .shipment-route strong { color: var(–accent2); font-weight: 500; }
-.progress-bar { background: var(–border); border-radius: 3px; height: 4px; width: 100%; overflow: hidden; margin-bottom: 6px; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(–accent2), var(–accent)); border-radius: 3px; transition: width 1.2s ease; width: 0%; }
-.progress-labels { display: flex; justify-content: space-between; font-family: ‘Oxanium’, monospace; font-size: 10px; color: var(–muted); letter-spacing: 0.08em; }
+.progress-bar { background: var(–border); border-radius: 6px; height: 10px; width: 100%; overflow: hidden; margin-bottom: 10px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(–accent2), var(–accent)); border-radius: 6px; transition: width 1.2s ease; width: 0%; }
+.progress-labels { display: flex; justify-content: space-between; align-items: center; font-family: ‘Oxanium’, monospace; font-size: 10px; color: var(–muted); letter-spacing: 0.08em; }
+#pPct { font-size: 22px; font-weight: 800; color: var(–accent); font-family: ‘Oxanium’, monospace; line-height: 1; }
 
 .status-banner {
 border: 1px solid var(–border);
@@ -657,6 +658,16 @@ function goTo(page) {
   window.scrollTo(0, 0);
   if (page === 'tracker') startTracker();
 }
+
+// ON LOAD — check for ?id= in URL and auto-open tracker
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (id) {
+    currentId = id;
+    goTo('tracker');
+  }
+});
 
 // HOME QUICK TRACK
 function homeTrack() {
