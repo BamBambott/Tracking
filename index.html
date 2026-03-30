@@ -440,9 +440,9 @@ HOW IT WORKS PAGE
 
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="hero-tag fu">🇳🇬 MADE FOR NIGERIA</div>
-    <h1 class="fu d1">Track Your Goods<br/>Across <em>Nigeria</em></h1>
-    <p class="fu d2">Real-time shipment tracking from Lagos to Ibadan and beyond. Know exactly where your goods are at every checkpoint.</p>
+    <div class="hero-tag fu">🇺🇸 MADE FOR THE USA</div>
+    <h1 class="fu d1">Track Your Goods<br/>Across <em>Tennessee</em></h1>
+    <p class="fu d2">Real-time shipment tracking from Nashville to Kingston and beyond. Know exactly where your goods are at every checkpoint.</p>
     <div class="hero-actions fu d3">
       <button class="btn btn-primary" onclick="goTo('track')">TRACK A SHIPMENT</button>
       <button class="btn btn-outline" onclick="goTo('hiw')">HOW IT WORKS</button>
@@ -453,7 +453,7 @@ HOW IT WORKS PAGE
     <div class="card">
       <label class="field-label">QUICK TRACK — ENTER TRACKING ID</label>
       <div class="input-row">
-        <input class="input-field" id="homeInput" type="text" placeholder="e.g. NG-2604-LOS-IBD"/>
+        <input class="input-field" id="homeInput" type="text" placeholder="e.g. TN-2604-NSH-KST"/>
         <button class="btn btn-primary" onclick="homeTrack()">TRACK</button>
       </div>
     </div>
@@ -461,7 +461,7 @@ HOW IT WORKS PAGE
 
   <div class="stats">
     <div class="stat"><span class="stat-num">6</span><div class="stat-label">Checkpoints</div></div>
-    <div class="stat"><span class="stat-num">5h</span><div class="stat-label">Lagos → Ibadan</div></div>
+    <div class="stat"><span class="stat-num">2h</span><div class="stat-label">Nashville → Kingston</div></div>
     <div class="stat"><span class="stat-num">Live</span><div class="stat-label">Status Updates</div></div>
   </div>
 
@@ -474,7 +474,7 @@ HOW IT WORKS PAGE
       <div class="feat-card"><span class="feat-icon">📍</span><h3>Live Checkpoints</h3><p>Track through every stop on the route — from departure to delivery.</p></div>
       <div class="feat-card"><span class="feat-icon">🔗</span><h3>Shareable Link</h3><p>Send the tracking link to your recipient so they can follow in real-time.</p></div>
       <div class="feat-card"><span class="feat-icon">⚡</span><h3>Instant Updates</h3><p>Status changes the moment your package moves between checkpoints.</p></div>
-      <div class="feat-card"><span class="feat-icon">🛣️</span><h3>Major Routes</h3><p>Covers key Nigerian corridors including the Lagos–Ibadan Expressway.</p></div>
+      <div class="feat-card"><span class="feat-icon">🛣️</span><h3>Major Routes</h3><p>Covers key Tennessee corridors including the I-40 Nashville–Kingston highway.</p></div>
     </div>
   </div>
 
@@ -486,7 +486,7 @@ HOW IT WORKS PAGE
 
   <footer>
     <div class="footer-logo">Track<span>NG</span></div>
-    <p>Goods tracking across Nigeria · Demo Project</p>
+    <p>Goods tracking across Tennessee · Demo Project</p>
     <p style="margin-top:6px;">© 2026 TrackNG</p>
   </footer>
 </div>
@@ -497,24 +497,24 @@ HOW IT WORKS PAGE
   <div class="track-wrap">
     <div class="section-label fu">TRACK YOUR PACKAGE</div>
     <div class="page-title fu d1">Enter Tracking ID</div>
-    <p class="page-sub fu d2">Your tracking ID is on your shipment receipt. It looks like <strong style="color:var(--accent);font-family:'Oxanium',monospace;">NG-2604-LOS-IBD</strong></p>
+    <p class="page-sub fu d2">Your tracking ID is on your shipment receipt. It looks like <strong style="color:var(--accent);font-family:'Oxanium',monospace;">TN-2604-NSH-KST</strong></p>
 
 ```
 <div class="track-card fu d2">
   <label class="field-label">Tracking ID</label>
   <div class="error-msg" id="trackErr">⚠ Please enter a tracking ID to continue.</div>
-  <input class="input-field" id="trackInput" type="text" placeholder="e.g. NG-2604-LOS-IBD" style="margin-bottom:14px;" autocomplete="off"/>
+  <input class="input-field" id="trackInput" type="text" placeholder="e.g. TN-2604-NSH-KST" style="margin-bottom:14px;" autocomplete="off"/>
   <button class="btn btn-primary btn-full" onclick="doTrack()">TRACK SHIPMENT →</button>
 </div>
 
 <div class="fu d3">
   <p class="samples-title">TRY A DEMO ID</p>
-  <div class="sample-item" onclick="useId('NG-2604-LOS-IBD')">
-    <div><div class="sample-code">NG-2604-LOS-IBD</div><div class="sample-route">Lagos → Ibadan · General Goods</div></div>
+  <div class="sample-item" onclick="useId('TN-2604-NSH-KST')">
+    <div><div class="sample-code">TN-2604-NSH-KST</div><div class="sample-route">Nashville → Kingston · General Goods</div></div>
     <span class="sample-arrow">→</span>
   </div>
-  <div class="sample-item" onclick="useId('NG-3003-APK-IBD')">
-    <div><div class="sample-code">NG-3003-APK-IBD</div><div class="sample-route">Apapa → Ibadan · Electronics</div></div>
+  <div class="sample-item" onclick="useId('TN-3003-NSH-KST')">
+    <div><div class="sample-code">TN-3003-NSH-KST</div><div class="sample-route">Nashville → Kingston · Electronics</div></div>
     <span class="sample-arrow">→</span>
   </div>
 </div>
@@ -695,7 +695,7 @@ document.addEventListener('keydown', e => {
 });
 
 // TRACKER
-let currentId = 'NG-2604-LOS-IBD';
+let currentId = 'TN-2604-NSH-KST';
 let trackerInterval = null;
 
 const statuses = [
