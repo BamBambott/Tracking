@@ -789,12 +789,11 @@ function startTracker() {
   const startTime = new Date();
   setTimestamps(startTime);
 
-  advanceStop(0);
-  let step = 1;
-  trackerInterval = setInterval(() => {
-    if (step < 6) { advanceStop(step++); }
-    else { finishTracker(); clearInterval(trackerInterval); }
-  }, 3500);
+  // Start at first stop with 15% progress — stays here, no auto-advance
+  document.getElementById('s0').classList.add('active');
+  document.getElementById('sMsg').innerHTML = statuses[0];
+  document.getElementById('pFill').style.width = '15%';
+  document.getElementById('pPct').textContent = '15%';
 }
 
 function copyLink() {
