@@ -8,15 +8,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg: #0d0f0e;
-  --surface: #141714;
-  --surface2: #191c18;
-  --border: #1f2420;
-  --accent: #c8f060;
-  --accent2: #ff8c42;
-  --muted: #4a5240;
-  --text: #d6e0c8;
-  --dim: #8a9680;
+  --bg: #f4f6f2;
+  --surface: #ffffff;
+  --surface2: #eef0eb;
+  --border: #d8ddd2;
+  --accent: #3a7d0a;
+  --accent2: #e05a00;
+  --muted: #9aa890;
+  --text: #1a2016;
+  --dim: #4a5e3a;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -25,8 +25,8 @@ body {
   font-family: 'Noto Sans', sans-serif;
   min-height: 100vh;
   background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(200,240,96,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 85%, rgba(255,140,66,0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 15% 10%, rgba(58,125,10,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 85%, rgba(224,90,0,0.04) 0%, transparent 50%);
 }
 /* PAGE SWITCHING */
 .page { display: none; }
@@ -41,7 +41,7 @@ padding: 18px 24px;
 border-bottom: 1px solid var(–border);
 position: sticky;
 top: 0;
-background: rgba(13,15,14,0.95);
+background: rgba(244,246,242,0.96);
 backdrop-filter: blur(12px);
 z-index: 100;
 }
@@ -145,24 +145,25 @@ text-transform: uppercase;
 .badge-live {
 font-family: ‘Oxanium’, monospace;
 font-size: 10px;
-font-weight: 600;
+font-weight: 700;
 letter-spacing: 0.15em;
-padding: 4px 10px;
+padding: 5px 12px;
 border-radius: 2px;
-color: var(–accent);
-border: 1px solid var(–accent);
+color: #fff;
+background: var(–accent);
+border: none;
 text-transform: uppercase;
 }
 .badge-live::before {
 content: ‘’;
 display: inline-block;
 width: 5px; height: 5px;
-background: var(–accent);
+background: #fff;
 border-radius: 50%;
 margin-right: 6px;
 animation: blink 1.4s infinite;
 }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
 /* FOOTER */
 footer {
@@ -332,17 +333,18 @@ padding: 0;
 
 .status-banner {
 border: 1px solid var(–border);
-border-left: 3px solid var(–accent2);
-border-radius: 4px;
+border-left: 4px solid var(–accent2);
+border-radius: 6px;
 padding: 14px 18px;
 margin: 18px 0;
-background: rgba(255,140,66,0.04);
+background: #fff8f4;
 transition: all 0.6s;
+box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-.status-banner.delivered { border-left-color: var(–accent); background: rgba(200,240,96,0.05); }
+.status-banner.delivered { border-left-color: var(–accent); background: #f4faf0; }
 .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .status-title { font-family: ‘Oxanium’, monospace; font-size: 10px; letter-spacing: 0.15em; color: var(–muted); text-transform: uppercase; }
-.status-msg { font-size: 14px; color: var(–text); line-height: 1.5; }
+.status-msg { font-size: 14px; color: var(–text); line-height: 1.5; font-weight: 500; }
 .status-msg strong { color: var(–accent2); }
 .status-banner.delivered .status-msg strong { color: var(–accent); }
 
@@ -361,11 +363,11 @@ flex-shrink: 0; z-index: 1; position: relative;
 transition: all 0.5s;
 }
 .stop.done .dot { border-color: var(–accent); background: var(–accent); }
-.stop.active .dot { border-color: var(–accent2); background: var(–bg); animation: adot 2s infinite; }
-@keyframes adot { 0%,100%{box-shadow:0 0 0 4px rgba(255,140,66,0.2)} 50%{box-shadow:0 0 0 8px rgba(255,140,66,0.06)} }
-.stop.done .dot::after { content:‘✓’; font-size:12px; font-weight:900; color:var(–bg); }
+.stop.active .dot { border-color: var(–accent2); background: #fff3ec; animation: adot 2s infinite; }
+@keyframes adot { 0%,100%{box-shadow:0 0 0 4px rgba(224,90,0,0.15)} 50%{box-shadow:0 0 0 8px rgba(224,90,0,0.05)} }
+.stop.done .dot::after { content:‘✓’; font-size:12px; font-weight:900; color:#fff; }
 .stop.active .dot::after { content:’’; width:10px; height:10px; background:var(–accent2); border-radius:50%; display:block; }
-.connector { width: 3px; flex:1; min-height: 44px; background: var(–muted); transition: background 0.6s; margin: 3px 0; border-radius: 2px; }
+.connector { width: 3px; flex:1; min-height: 44px; background: var(–border); transition: background 0.6s; margin: 3px 0; border-radius: 2px; }
 .stop.done .connector { background: var(–accent); }
 .stop-body { padding: 0 0 32px; flex: 1; }
 .stop-name { font-family:‘Oxanium’,monospace; font-size:13px; font-weight:700; letter-spacing:0.04em; color:var(–muted); transition:color 0.5s; margin-bottom:3px; }
