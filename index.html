@@ -1,52 +1,759 @@
-TrackNG
-	•	Home
-	•	How It Works
-TRACK SHIPMENT
-🇳🇬 MADE FOR NIGERIA
-Track Your Goods Across Nigeria
-Real-time shipment tracking from Lagos to Ibadan and beyond. Know exactly where your goods are at every checkpoint.
-TRACK A SHIPMENT
-HOW IT WORKS
-ENTER TRACKING ID
+<!DOCTYPE html>
 
-TRACK
-6
-Checkpoints Monitored
-5h
-Lagos → Ibadan Route
-Live
-Status Updates
-WHY TRACKNG
-Everything you need to ship with confidence
-📍
-Live Checkpoints
-Track your package through every stop on the route — from departure to delivery.
-🔗
-Shareable Link
-Send the tracking link to your recipient so they can follow along in real-time.
-⚡
-Instant Updates
-Status changes the moment your package moves between checkpoints.
-🛣️
-Major Routes
-Covers key Nigerian corridors including Lagos–Ibadan Expressway.
-ACTIVE ROUTES
-Supported Corridors
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TrackNG — Ship & Track Goods Across Nigeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0d0f0e;
+  --surface: #141714;
+  --surface2: #191c18;
+  --border: #1f2420;
+  --accent: #c8f060;
+  --accent2: #ff8c42;
+  --muted: #4a5240;
+  --text: #d6e0c8;
+  --dim: #8a9680;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans', sans-serif;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(200,240,96,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 85%, rgba(255,140,66,0.04) 0%, transparent 50%);
+}
+/* PAGE SWITCHING */
+.page { display: none; }
+.page.active { display: block; }
 
-Lagos → Ibadan
-~127 km · 5 stops
+/* NAV */
+nav {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 18px 24px;
+border-bottom: 1px solid var(–border);
+position: sticky;
+top: 0;
+background: rgba(13,15,14,0.95);
+backdrop-filter: blur(12px);
+z-index: 100;
+}
+.logo {
+font-family: ‘Oxanium’, monospace;
+font-size: 20px;
+font-weight: 800;
+letter-spacing: 0.1em;
+color: var(–accent);
+cursor: pointer;
+}
+.logo span { color: var(–dim); }
+.nav-links {
+display: flex;
+gap: 20px;
+list-style: none;
+}
+.nav-links a {
+font-family: ‘Oxanium’, monospace;
+font-size: 12px;
+letter-spacing: 0.1em;
+color: var(–dim);
+text-decoration: none;
+cursor: pointer;
+transition: color 0.2s;
+}
+.nav-links a:hover { color: var(–accent); }
+.nav-cta {
+font-family: ‘Oxanium’, monospace;
+font-size: 12px;
+font-weight: 700;
+letter-spacing: 0.1em;
+color: var(–bg);
+background: var(–accent);
+border: none;
+padding: 10px 18px;
+border-radius: 3px;
+cursor: pointer;
+transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
 
-Lagos → Abuja
-Coming soon
+/* BUTTONS */
+.btn {
+font-family: ‘Oxanium’, monospace;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 0.1em;
+padding: 14px 26px;
+border-radius: 3px;
+border: none;
+cursor: pointer;
+display: inline-block;
+transition: all 0.2s;
+text-decoration: none;
+}
+.btn-primary { background: var(–accent); color: var(–bg); }
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(–text); border: 1px solid var(–border); }
+.btn-outline:hover { border-color: var(–accent); color: var(–accent); }
+.btn-full { width: 100%; text-align: center; padding: 16px; }
 
-Lagos → Benin
-Coming soon
+/* CARD & INPUT */
+.card { background: var(–surface); border: 1px solid var(–border); border-radius: 8px; padding: 24px; }
+.input-field {
+width: 100%;
+background: var(–surface2);
+border: 1px solid var(–border);
+border-radius: 4px;
+color: var(–text);
+font-family: ‘Oxanium’, monospace;
+font-size: 14px;
+letter-spacing: 0.08em;
+padding: 14px 16px;
+outline: none;
+transition: border-color 0.2s;
+}
+.input-field::placeholder { color: var(–muted); }
+.input-field:focus { border-color: var(–accent); }
 
-Ibadan → Kano
-Coming soon
-Ready to track your shipment?
-Enter your tracking ID and get live updates instantly.
-TRACK NOW →
-TrackNG
-Goods tracking across Nigeria · Demo Project
-© 2026 TrackNG
+/* LABELS */
+.section-label {
+font-family: ‘Oxanium’, monospace;
+font-size: 10px;
+letter-spacing: 0.2em;
+color: var(–accent);
+text-transform: uppercase;
+margin-bottom: 10px;
+}
+.field-label {
+font-family: ‘Oxanium’, monospace;
+font-size: 11px;
+letter-spacing: 0.12em;
+color: var(–dim);
+display: block;
+margin-bottom: 10px;
+text-transform: uppercase;
+}
+
+/* BADGE */
+.badge-live {
+font-family: ‘Oxanium’, monospace;
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 0.15em;
+padding: 4px 10px;
+border-radius: 2px;
+color: var(–accent);
+border: 1px solid var(–accent);
+text-transform: uppercase;
+}
+.badge-live::before {
+content: ‘’;
+display: inline-block;
+width: 5px; height: 5px;
+background: var(–accent);
+border-radius: 50%;
+margin-right: 6px;
+animation: blink 1.4s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* FOOTER */
+footer {
+border-top: 1px solid var(–border);
+padding: 28px 24px;
+text-align: center;
+}
+.footer-logo {
+font-family: ‘Oxanium’, monospace;
+font-size: 18px;
+font-weight: 800;
+color: var(–accent);
+margin-bottom: 6px;
+}
+.footer-logo span { color: var(–dim); }
+footer p { font-size: 12px; color: var(–muted); margin-top: 4px; }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+from { opacity:0; transform:translateY(18px); }
+to { opacity:1; transform:translateY(0); }
+}
+.fu { animation: fadeUp 0.55s ease both; }
+.d1 { animation-delay:0.1s; }
+.d2 { animation-delay:0.2s; }
+.d3 { animation-delay:0.3s; }
+.d4 { animation-delay:0.4s; }
+
+/* ==============================
+HOME PAGE
+============================== */
+.hero {
+max-width: 640px;
+margin: 0 auto;
+padding: 72px 24px 56px;
+text-align: center;
+}
+.hero-tag {
+display: inline-block;
+background: rgba(200,240,96,0.08);
+border: 1px solid rgba(200,240,96,0.2);
+color: var(–accent);
+font-family: ‘Oxanium’, monospace;
+font-size: 11px;
+letter-spacing: 0.15em;
+padding: 6px 14px;
+border-radius: 2px;
+margin-bottom: 24px;
+}
+.hero h1 {
+font-family: ‘Oxanium’, monospace;
+font-size: clamp(32px, 8vw, 60px);
+font-weight: 800;
+line-height: 1.05;
+color: var(–text);
+margin-bottom: 18px;
+}
+.hero h1 em { color: var(–accent); font-style: normal; }
+.hero p {
+font-size: 15px;
+color: var(–dim);
+line-height: 1.7;
+max-width: 460px;
+margin: 0 auto 32px;
+}
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.quick-track { max-width: 500px; margin: 0 auto 72px; padding: 0 24px; }
+.quick-track .input-row { display: flex; gap: 10px; margin-top: 10px; }
+.quick-track .input-row input { flex: 1; }
+
+.stats {
+border-top: 1px solid var(–border);
+border-bottom: 1px solid var(–border);
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+max-width: 760px;
+margin: 0 auto 72px;
+}
+.stat { padding: 32px 20px; text-align: center; border-right: 1px solid var(–border); }
+.stat:last-child { border-right: none; }
+.stat-num { font-family: ‘Oxanium’, monospace; font-size: 32px; font-weight: 800; color: var(–accent); display: block; margin-bottom: 5px; }
+.stat-label { font-size: 12px; color: var(–dim); }
+
+.features { max-width: 760px; margin: 0 auto 72px; padding: 0 24px; }
+.features-hdr { text-align: center; margin-bottom: 40px; }
+.features-hdr h2 { font-family: ‘Oxanium’, monospace; font-size: 26px; font-weight: 700; color: var(–text); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.feat-card { background: var(–surface); border: 1px solid var(–border); border-radius: 8px; padding: 22px; transition: border-color 0.2s; }
+.feat-card:hover { border-color: var(–accent); }
+.feat-icon { font-size: 22px; margin-bottom: 12px; display: block; }
+.feat-card h3 { font-family: ‘Oxanium’, monospace; font-size: 13px; font-weight: 700; color: var(–text); margin-bottom: 6px; }
+.feat-card p { font-size: 12px; color: var(–dim); line-height: 1.6; }
+
+.cta-band {
+background: var(–surface);
+border-top: 1px solid var(–border);
+padding: 56px 24px;
+text-align: center;
+}
+.cta-band h2 { font-family: ‘Oxanium’, monospace; font-size: 26px; font-weight: 700; color: var(–text); margin-bottom: 10px; }
+.cta-band p { font-size: 14px; color: var(–dim); margin-bottom: 24px; }
+
+/* ==============================
+TRACK PAGE
+============================== */
+.track-wrap { max-width: 500px; margin: 0 auto; padding: 52px 24px 60px; }
+.page-title { font-family: ‘Oxanium’, monospace; font-size: 30px; font-weight: 800; color: var(–text); margin-bottom: 6px; }
+.page-sub { font-size: 14px; color: var(–dim); line-height: 1.6; margin-bottom: 36px; }
+.track-card { background: var(–surface); border: 1px solid var(–border); border-radius: 8px; padding: 28px; margin-bottom: 24px; }
+.error-msg {
+background: rgba(255,100,100,0.08);
+border: 1px solid rgba(255,100,100,0.2);
+border-radius: 4px;
+padding: 12px 16px;
+font-size: 13px;
+color: #ff8080;
+font-family: ‘Oxanium’, monospace;
+display: none;
+margin-bottom: 14px;
+}
+.samples-title { font-family: ‘Oxanium’, monospace; font-size: 11px; letter-spacing: 0.1em; color: var(–muted); margin-bottom: 12px; text-transform: uppercase; }
+.sample-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: var(–surface2);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 12px 16px;
+cursor: pointer;
+transition: border-color 0.2s;
+margin-bottom: 8px;
+}
+.sample-item:hover { border-color: var(–accent); }
+.sample-code { font-family: ‘Oxanium’, monospace; font-size: 13px; font-weight: 600; color: var(–text); }
+.sample-route { font-size: 12px; color: var(–dim); margin-top: 2px; }
+.sample-arrow { color: var(–accent); font-size: 14px; }
+
+/* ==============================
+TRACKER PAGE
+============================== */
+.tracker-wrap { max-width: 540px; margin: 0 auto; padding: 36px 24px 60px; }
+.back-link {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+font-family: ‘Oxanium’, monospace;
+font-size: 11px;
+letter-spacing: 0.1em;
+color: var(–dim);
+cursor: pointer;
+margin-bottom: 24px;
+transition: color 0.2s;
+background: none;
+border: none;
+padding: 0;
+}
+.back-link:hover { color: var(–accent); }
+.track-id-label { font-family: ‘Oxanium’, monospace; font-size: 11px; letter-spacing: 0.15em; color: var(–muted); margin-bottom: 4px; }
+.shipment-name { font-family: ‘Oxanium’, monospace; font-size: 22px; font-weight: 800; color: var(–text); margin-bottom: 4px; }
+.shipment-route { font-size: 13px; color: var(–dim); margin-bottom: 16px; }
+.shipment-route strong { color: var(–accent2); font-weight: 500; }
+.progress-bar { background: var(–border); border-radius: 3px; height: 4px; width: 100%; overflow: hidden; margin-bottom: 6px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(–accent2), var(–accent)); border-radius: 3px; transition: width 1.2s ease; width: 0%; }
+.progress-labels { display: flex; justify-content: space-between; font-family: ‘Oxanium’, monospace; font-size: 10px; color: var(–muted); letter-spacing: 0.08em; }
+
+.status-banner {
+border: 1px solid var(–border);
+border-left: 3px solid var(–accent2);
+border-radius: 4px;
+padding: 14px 18px;
+margin: 18px 0;
+background: rgba(255,140,66,0.04);
+transition: all 0.6s;
+}
+.status-banner.delivered { border-left-color: var(–accent); background: rgba(200,240,96,0.05); }
+.status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.status-title { font-family: ‘Oxanium’, monospace; font-size: 10px; letter-spacing: 0.15em; color: var(–muted); text-transform: uppercase; }
+.status-msg { font-size: 14px; color: var(–text); line-height: 1.5; }
+.status-msg strong { color: var(–accent2); }
+.status-banner.delivered .status-msg strong { color: var(–accent); }
+
+/* TIMELINE */
+.timeline { display: flex; flex-direction: column; }
+.stop { display: flex; gap: 14px; opacity: 0.3; transition: opacity 0.5s; }
+.stop.done, .stop.active { opacity: 1; }
+.stop-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 24px; }
+.dot {
+width: 22px; height: 22px;
+border-radius: 50%;
+border: 2px solid var(–muted);
+background: var(–bg);
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0; z-index: 1; position: relative;
+transition: all 0.5s;
+}
+.stop.done .dot { border-color: var(–accent); background: var(–accent); }
+.stop.active .dot { border-color: var(–accent2); animation: adot 2s infinite; }
+@keyframes adot { 0%,100%{box-shadow:0 0 0 3px rgba(255,140,66,0.15)} 50%{box-shadow:0 0 0 7px rgba(255,140,66,0.05)} }
+.stop.done .dot::after { content:‘✓’; font-size:10px; font-weight:800; color:var(–bg); }
+.stop.active .dot::after { content:’’; width:8px; height:8px; background:var(–accent2); border-radius:50%; display:block; }
+.connector { width:2px; flex:1; min-height:38px; background:var(–border); transition:background 0.6s; margin:2px 0; }
+.stop.done .connector { background: var(–accent); }
+.stop-body { padding: 0 0 32px; flex: 1; }
+.stop-name { font-family:‘Oxanium’,monospace; font-size:13px; font-weight:700; letter-spacing:0.04em; color:var(–muted); transition:color 0.5s; margin-bottom:3px; }
+.stop.done .stop-name { color: var(–text); }
+.stop.active .stop-name { color: var(–accent2); }
+.stop-desc { font-size:12px; color:var(–muted); line-height:1.6; transition:color 0.5s; }
+.stop.done .stop-desc, .stop.active .stop-desc { color: var(–dim); }
+.stop-ts { font-family:‘Oxanium’,monospace; font-size:10px; color:var(–muted); letter-spacing:0.08em; margin-top:4px; opacity:0; transition:opacity 0.5s; }
+.stop.done .stop-ts, .stop.active .stop-ts { opacity:1; }
+
+.share-section { margin-top:28px; background:var(–surface); border:1px solid var(–border); border-radius:8px; padding:18px 20px; }
+.share-label { font-family:‘Oxanium’,monospace; font-size:11px; letter-spacing:0.12em; color:var(–dim); margin-bottom:10px; text-transform:uppercase; }
+.share-row { display:flex; gap:10px; }
+.share-url { flex:1; background:var(–surface2); border:1px solid var(–border); border-radius:4px; padding:10px 12px; font-family:‘Oxanium’,monospace; font-size:11px; color:var(–dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.copy-btn { font-family:‘Oxanium’,monospace; font-size:11px; font-weight:700; letter-spacing:0.1em; padding:10px 14px; background:var(–surface2); border:1px solid var(–border); border-radius:4px; color:var(–accent); cursor:pointer; transition:all 0.2s; flex-shrink:0; }
+.copy-btn:hover { background:rgba(200,240,96,0.08); border-color:var(–accent); }
+.copy-btn.copied { color:var(–bg); background:var(–accent); border-color:var(–accent); }
+
+/* ==============================
+HOW IT WORKS PAGE
+============================== */
+.hiw-wrap { max-width: 640px; margin: 0 auto; padding: 52px 24px 72px; }
+.hiw-hero { text-align: center; margin-bottom: 56px; }
+.hiw-hero h1 { font-family:‘Oxanium’,monospace; font-size:32px; font-weight:800; color:var(–text); margin-bottom:10px; }
+.hiw-hero p { font-size:14px; color:var(–dim); line-height:1.7; max-width:420px; margin:0 auto; }
+
+.steps-title { font-family:‘Oxanium’,monospace; font-size:11px; letter-spacing:0.2em; color:var(–accent); text-align:center; margin-bottom:32px; text-transform:uppercase; }
+.step { display:flex; gap:20px; background:var(–surface); border:1px solid var(–border); border-radius:8px; padding:22px; margin-bottom:14px; transition:border-color 0.2s; }
+.step:hover { border-color:var(–accent); }
+.step-num { font-family:‘Oxanium’,monospace; font-size:28px; font-weight:800; color:rgba(200,240,96,0.12); flex-shrink:0; line-height:1; min-width:36px; }
+.step h3 { font-family:‘Oxanium’,monospace; font-size:14px; font-weight:700; color:var(–text); margin-bottom:6px; }
+.step p { font-size:13px; color:var(–dim); line-height:1.7; }
+
+.checkpoints { margin: 48px 0; }
+.checkpoints h2 { font-family:‘Oxanium’,monospace; font-size:22px; font-weight:700; color:var(–text); text-align:center; margin-bottom:20px; }
+.cp-list { background:var(–surface); border:1px solid var(–border); border-radius:8px; overflow:hidden; }
+.cp-item { display:flex; align-items:center; gap:14px; padding:14px 18px; border-bottom:1px solid var(–border); transition:background 0.2s; }
+.cp-item:last-child { border-bottom:none; }
+.cp-item:hover { background:rgba(200,240,96,0.03); }
+.cp-num { font-family:‘Oxanium’,monospace; font-size:11px; font-weight:700; color:var(–muted); width:18px; text-align:center; flex-shrink:0; }
+.cp-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.cp-name { font-family:‘Oxanium’,monospace; font-size:12px; font-weight:600; color:var(–text); flex:1; }
+.cp-time { font-family:‘Oxanium’,monospace; font-size:11px; color:var(–muted); letter-spacing:0.06em; }
+
+.faq { margin: 48px 0; }
+.faq h2 { font-family:‘Oxanium’,monospace; font-size:22px; font-weight:700; color:var(–text); text-align:center; margin-bottom:20px; }
+.faq-item { border-bottom:1px solid var(–border); padding:18px 0; }
+.faq-q { font-family:‘Oxanium’,monospace; font-size:13px; font-weight:700; color:var(–text); margin-bottom:7px; }
+.faq-a { font-size:13px; color:var(–dim); line-height:1.7; }
+
+.hiw-cta { text-align:center; padding:40px 0 0; border-top:1px solid var(–border); }
+.hiw-cta h2 { font-family:‘Oxanium’,monospace; font-size:22px; font-weight:700; color:var(–text); margin-bottom:8px; }
+.hiw-cta p { font-size:13px; color:var(–dim); margin-bottom:22px; }
+</style>
+
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="goTo('home')">Track<span>NG</span></div>
+  <ul class="nav-links">
+    <li><a onclick="goTo('home')">Home</a></li>
+    <li><a onclick="goTo('hiw')">How It Works</a></li>
+  </ul>
+  <button class="nav-cta" onclick="goTo('track')">TRACK SHIPMENT</button>
+</nav>
+
+<!-- ===================== HOME ===================== -->
+
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-tag fu">🇳🇬 MADE FOR NIGERIA</div>
+    <h1 class="fu d1">Track Your Goods<br/>Across <em>Nigeria</em></h1>
+    <p class="fu d2">Real-time shipment tracking from Lagos to Ibadan and beyond. Know exactly where your goods are at every checkpoint.</p>
+    <div class="hero-actions fu d3">
+      <button class="btn btn-primary" onclick="goTo('track')">TRACK A SHIPMENT</button>
+      <button class="btn btn-outline" onclick="goTo('hiw')">HOW IT WORKS</button>
+    </div>
+  </div>
+
+  <div class="quick-track fu d3">
+    <div class="card">
+      <label class="field-label">QUICK TRACK — ENTER TRACKING ID</label>
+      <div class="input-row">
+        <input class="input-field" id="homeInput" type="text" placeholder="e.g. NG-2604-LOS-IBD"/>
+        <button class="btn btn-primary" onclick="homeTrack()">TRACK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-num">6</span><div class="stat-label">Checkpoints</div></div>
+    <div class="stat"><span class="stat-num">5h</span><div class="stat-label">Lagos → Ibadan</div></div>
+    <div class="stat"><span class="stat-num">Live</span><div class="stat-label">Status Updates</div></div>
+  </div>
+
+  <div class="features">
+    <div class="features-hdr">
+      <div class="section-label">WHY TRACKNG</div>
+      <h2>Everything you need to ship with confidence</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card"><span class="feat-icon">📍</span><h3>Live Checkpoints</h3><p>Track through every stop on the route — from departure to delivery.</p></div>
+      <div class="feat-card"><span class="feat-icon">🔗</span><h3>Shareable Link</h3><p>Send the tracking link to your recipient so they can follow in real-time.</p></div>
+      <div class="feat-card"><span class="feat-icon">⚡</span><h3>Instant Updates</h3><p>Status changes the moment your package moves between checkpoints.</p></div>
+      <div class="feat-card"><span class="feat-icon">🛣️</span><h3>Major Routes</h3><p>Covers key Nigerian corridors including the Lagos–Ibadan Expressway.</p></div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Ready to track your shipment?</h2>
+    <p>Enter your tracking ID and get live updates instantly.</p>
+    <button class="btn btn-primary" onclick="goTo('track')">TRACK NOW →</button>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Track<span>NG</span></div>
+    <p>Goods tracking across Nigeria · Demo Project</p>
+    <p style="margin-top:6px;">© 2026 TrackNG</p>
+  </footer>
+</div>
+
+<!-- ===================== TRACK ===================== -->
+
+<div id="page-track" class="page">
+  <div class="track-wrap">
+    <div class="section-label fu">TRACK YOUR PACKAGE</div>
+    <div class="page-title fu d1">Enter Tracking ID</div>
+    <p class="page-sub fu d2">Your tracking ID is on your shipment receipt. It looks like <strong style="color:var(--accent);font-family:'Oxanium',monospace;">NG-2604-LOS-IBD</strong></p>
+
+```
+<div class="track-card fu d2">
+  <label class="field-label">Tracking ID</label>
+  <div class="error-msg" id="trackErr">⚠ Please enter a tracking ID to continue.</div>
+  <input class="input-field" id="trackInput" type="text" placeholder="e.g. NG-2604-LOS-IBD" style="margin-bottom:14px;" autocomplete="off"/>
+  <button class="btn btn-primary btn-full" onclick="doTrack()">TRACK SHIPMENT →</button>
+</div>
+
+<div class="fu d3">
+  <p class="samples-title">TRY A DEMO ID</p>
+  <div class="sample-item" onclick="useId('NG-2604-LOS-IBD')">
+    <div><div class="sample-code">NG-2604-LOS-IBD</div><div class="sample-route">Lagos → Ibadan · General Goods</div></div>
+    <span class="sample-arrow">→</span>
+  </div>
+  <div class="sample-item" onclick="useId('NG-3003-APK-IBD')">
+    <div><div class="sample-code">NG-3003-APK-IBD</div><div class="sample-route">Apapa → Ibadan · Electronics</div></div>
+    <span class="sample-arrow">→</span>
+  </div>
+</div>
+```
+
+  </div>
+
+  <footer>
+    <div class="footer-logo">Track<span>NG</span></div>
+    <p>Goods tracking across Nigeria · Demo Project</p>
+  </footer>
+</div>
+
+<!-- ===================== TRACKER ===================== -->
+
+<div id="page-tracker" class="page">
+  <div class="tracker-wrap">
+    <button class="back-link" onclick="goTo('track')">← BACK TO SEARCH</button>
+
+```
+<div class="track-id-label" id="tLabel">TRACKING ID: —</div>
+<div class="shipment-name">General Goods Package</div>
+<div class="shipment-route">From <strong>Lagos</strong> &rarr; <strong>Ibadan</strong></div>
+
+<div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
+<div class="progress-labels"><span>DEPARTURE</span><span id="pPct">0%</span><span>DELIVERED</span></div>
+
+<div class="status-banner" id="sBanner">
+  <div class="status-top">
+    <span class="status-title">CURRENT STATUS</span>
+    <span class="badge-live" id="liveTag">LIVE</span>
+  </div>
+  <div class="status-msg" id="sMsg">Initialising...</div>
+</div>
+
+<div class="timeline">
+  <div class="stop" id="s0">
+    <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
+    <div class="stop-body"><div class="stop-name">Apapa Warehouse, Lagos</div><div class="stop-desc">Goods packed and verified. Ready for dispatch.</div><div class="stop-ts">8:00 AM · Mon 30 Mar</div></div>
+  </div>
+  <div class="stop" id="s1">
+    <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
+    <div class="stop-body"><div class="stop-name">Ojota Motor Park, Lagos</div><div class="stop-desc">Loaded onto transport vehicle. Driver confirmed, route set.</div><div class="stop-ts">9:15 AM · Mon 30 Mar</div></div>
+  </div>
+  <div class="stop" id="s2">
+    <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
+    <div class="stop-body"><div class="stop-name">Sagamu Interchange</div><div class="stop-desc">Expressway checkpoint cleared. Proceeding on Lagos–Ibadan Highway.</div><div class="stop-ts">10:40 AM · Mon 30 Mar</div></div>
+  </div>
+  <div class="stop" id="s3">
+    <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
+    <div class="stop-body"><div class="stop-name">Ogere Rest Stop</div><div class="stop-desc">Short driver rest. Goods secured on vehicle.</div><div class="stop-ts">11:20 AM · Mon 30 Mar</div></div>
+  </div>
+  <div class="stop" id="s4">
+    <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
+    <div class="stop-body"><div class="stop-name">Ibadan Toll Gate</div><div class="stop-desc">Entered Ibadan. Final delivery leg in progress.</div><div class="stop-ts">12:30 PM · Mon 30 Mar</div></div>
+  </div>
+  <div class="stop" id="s5">
+    <div class="stop-line"><div class="dot"></div></div>
+    <div class="stop-body"><div class="stop-name">Dugbe Delivery Point, Ibadan</div><div class="stop-desc">Package delivered. Recipient confirmed. 🎉</div><div class="stop-ts">1:05 PM · Mon 30 Mar</div></div>
+  </div>
+</div>
+
+<div class="share-section">
+  <div class="share-label">📎 SHARE TRACKING LINK</div>
+  <div class="share-row">
+    <div class="share-url" id="shareUrl">—</div>
+    <button class="copy-btn" id="copyBtn" onclick="copyLink()">COPY</button>
+  </div>
+</div>
+```
+
+  </div>
+
+  <footer>
+    <div class="footer-logo">Track<span>NG</span></div>
+    <p>Goods tracking across Nigeria · Demo Project</p>
+  </footer>
+</div>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+
+<div id="page-hiw" class="page">
+  <div class="hiw-wrap">
+    <div class="hiw-hero fu">
+      <div class="section-label">EXPLAINER</div>
+      <h1>How TrackNG Works</h1>
+      <p>From the moment your goods leave Lagos to delivery in Ibadan — here's exactly what happens.</p>
+    </div>
+
+```
+<div class="fu d1">
+  <div class="steps-title">THE PROCESS</div>
+  <div class="step"><div class="step-num">01</div><div><h3>Goods Are Registered</h3><p>When a shipment is booked, goods get a unique Tracking ID tied to the route, sender, and recipient.</p></div></div>
+  <div class="step"><div class="step-num">02</div><div><h3>Checkpoints Are Logged</h3><p>As the vehicle moves, agents at each stop confirm the goods. The system records the timestamp and updates status instantly.</p></div></div>
+  <div class="step"><div class="step-num">03</div><div><h3>You Track in Real-Time</h3><p>Enter your Tracking ID and see exactly which checkpoint your goods have reached. Updates live — no refresh needed.</p></div></div>
+  <div class="step"><div class="step-num">04</div><div><h3>Share With Your Recipient</h3><p>Copy the tracking link and send it to whoever is receiving the goods. No account needed.</p></div></div>
+</div>
+
+<div class="checkpoints fu d2">
+  <div class="section-label" style="text-align:center;">ROUTE BREAKDOWN</div>
+  <h2>Lagos → Ibadan Checkpoints</h2>
+  <div class="cp-list">
+    <div class="cp-item"><div class="cp-num">01</div><div class="cp-dot" style="background:var(--accent)"></div><div class="cp-name">Apapa Warehouse, Lagos</div><div class="cp-time">~8:00 AM</div></div>
+    <div class="cp-item"><div class="cp-num">02</div><div class="cp-dot" style="background:var(--accent2)"></div><div class="cp-name">Ojota Motor Park</div><div class="cp-time">~9:15 AM</div></div>
+    <div class="cp-item"><div class="cp-num">03</div><div class="cp-dot" style="background:var(--accent2)"></div><div class="cp-name">Sagamu Interchange</div><div class="cp-time">~10:40 AM</div></div>
+    <div class="cp-item"><div class="cp-num">04</div><div class="cp-dot" style="background:var(--accent2)"></div><div class="cp-name">Ogere Rest Stop</div><div class="cp-time">~11:20 AM</div></div>
+    <div class="cp-item"><div class="cp-num">05</div><div class="cp-dot" style="background:var(--accent2)"></div><div class="cp-name">Ibadan Toll Gate</div><div class="cp-time">~12:30 PM</div></div>
+    <div class="cp-item"><div class="cp-num">06</div><div class="cp-dot" style="background:var(--accent)"></div><div class="cp-name">Dugbe Delivery Point, Ibadan</div><div class="cp-time">~1:05 PM</div></div>
+  </div>
+</div>
+
+<div class="faq fu d3">
+  <div class="section-label" style="text-align:center;">FAQ</div>
+  <h2>Common Questions</h2>
+  <div class="faq-item"><div class="faq-q">Where do I find my Tracking ID?</div><div class="faq-a">It's printed on your shipment receipt when goods are booked. Format: NG-XXXX-LOS-IBD.</div></div>
+  <div class="faq-item"><div class="faq-q">Can I share the tracking link?</div><div class="faq-a">Yes! On the tracker page, tap "Copy" to get the full URL. Anyone with the link can follow the shipment live.</div></div>
+  <div class="faq-item"><div class="faq-q">How long does Lagos to Ibadan take?</div><div class="faq-a">Typically 4–6 hours depending on traffic. TrackNG shows live progress so you always know where the goods are.</div></div>
+  <div class="faq-item"><div class="faq-q">Are other routes available?</div><div class="faq-a">Lagos–Abuja, Lagos–Benin, and Ibadan–Kano are coming soon.</div></div>
+</div>
+
+<div class="hiw-cta fu d4">
+  <h2>Ready to track?</h2>
+  <p>Enter your Tracking ID and follow your goods in real-time.</p>
+  <button class="btn btn-primary" onclick="goTo('track')">TRACK A SHIPMENT →</button>
+</div>
+```
+
+  </div>
+
+  <footer>
+    <div class="footer-logo">Track<span>NG</span></div>
+    <p>Goods tracking across Nigeria · Demo Project</p>
+  </footer>
+</div>
+
+<script>
+// PAGE NAVIGATION
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+  if (page === 'tracker') startTracker();
+}
+
+// HOME QUICK TRACK
+function homeTrack() {
+  const id = document.getElementById('homeInput').value.trim();
+  currentId = id || 'NG-2604-LOS-IBD';
+  goTo('tracker');
+}
+
+// TRACK PAGE
+function doTrack() {
+  const id = document.getElementById('trackInput').value.trim();
+  const err = document.getElementById('trackErr');
+  if (!id) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  currentId = id;
+  goTo('tracker');
+}
+function useId(id) {
+  document.getElementById('trackInput').value = id;
+  currentId = id;
+  setTimeout(() => goTo('tracker'), 150);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('page-track').classList.contains('active')) doTrack();
+});
+
+// TRACKER
+let currentId = 'NG-2604-LOS-IBD';
+let trackerInterval = null;
+
+const statuses = [
+  "Goods dispatched from <strong>Apapa Warehouse, Lagos</strong>.",
+  "Vehicle in motion — departed <strong>Ojota Motor Park</strong>.",
+  "Checkpoint cleared at <strong>Sagamu Interchange</strong>. On the expressway.",
+  "Brief stop at <strong>Ogere</strong>. Driver resting. Back on road soon.",
+  "Entering Ibadan via <strong>Toll Gate</strong>. Almost there!",
+  "📦 <strong>Delivered at Dugbe, Ibadan!</strong> Package received. 🎉"
+];
+
+function resetTracker() {
+  for (let i = 0; i < 6; i++) {
+    const s = document.getElementById('s' + i);
+    s.classList.remove('done', 'active');
+  }
+  document.getElementById('pFill').style.width = '0%';
+  document.getElementById('pPct').textContent = '0%';
+  document.getElementById('sMsg').textContent = 'Initialising...';
+  document.getElementById('sBanner').classList.remove('delivered');
+  const tag = document.getElementById('liveTag');
+  tag.textContent = 'LIVE';
+  tag.className = 'badge-live';
+}
+
+function advanceStop(step) {
+  if (step > 0) {
+    document.getElementById('s' + (step - 1)).classList.remove('active');
+    document.getElementById('s' + (step - 1)).classList.add('done');
+  }
+  document.getElementById('s' + step).classList.add('active');
+  document.getElementById('sMsg').innerHTML = statuses[step];
+  if (step === 5) document.getElementById('sBanner').classList.add('delivered');
+  const pct = Math.round((step / 5) * 100);
+  document.getElementById('pFill').style.width = pct + '%';
+  document.getElementById('pPct').textContent = pct + '%';
+}
+
+function finishTracker() {
+  for (let i = 0; i < 6; i++) {
+    document.getElementById('s' + i).classList.remove('active');
+    document.getElementById('s' + i).classList.add('done');
+  }
+  const tag = document.getElementById('liveTag');
+  tag.textContent = 'DELIVERED';
+  tag.style.cssText = 'font-family:Oxanium,monospace;font-size:10px;font-weight:600;letter-spacing:0.15em;padding:4px 10px;border-radius:2px;color:var(--accent);border:1px solid var(--accent);';
+}
+
+function startTracker() {
+  if (trackerInterval) clearInterval(trackerInterval);
+  resetTracker();
+  document.getElementById('tLabel').textContent = 'TRACKING ID: ' + currentId;
+  document.getElementById('shareUrl').textContent = window.location.href.split('?')[0] + '?id=' + encodeURIComponent(currentId);
+  advanceStop(0);
+  let step = 1;
+  trackerInterval = setInterval(() => {
+    if (step < 6) { advanceStop(step++); }
+    else { finishTracker(); clearInterval(trackerInterval); }
+  }, 3500);
+}
+
+function copyLink() {
+  const url = window.location.href.split('?')[0] + '?id=' + encodeURIComponent(currentId);
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'COPIED!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
