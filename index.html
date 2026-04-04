@@ -342,7 +342,8 @@ background: #fff8f4;
 transition: all 0.6s;
 box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-.status-banner.delivered { border-left-color: var(–accent); background: #f4faf0; }
+.status-banner.hold { border-left-color: #e05a00; background: #fff8f0; }
+.status-banner.hold .status-msg strong { color: #e05a00; }
 .status-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .status-title { font-family: ‘Oxanium’, monospace; font-size: 10px; letter-spacing: 0.15em; color: var(–muted); text-transform: uppercase; }
 .status-msg { font-size: 14px; color: var(–text); line-height: 1.5; font-weight: 500; }
@@ -565,7 +566,7 @@ HOW IT WORKS PAGE
   </div>
   <div class="stop" id="s3">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
-    <div class="stop-body"><div class="stop-name">Crossville, TN — Midway Point</div><div class="stop-desc">Halfway checkpoint passed. On schedule. Continuing east on I-40.</div><div class="stop-ts" id="ts3"></div></div>
+    <div class="stop-body"><div class="stop-name">Crossville, TN — THP Inspection Hold</div><div class="stop-desc">⚠️ Goods currently on hold. Tennessee Highway Patrol conducting routine commercial vehicle inspection. Awaiting clearance.</div><div class="stop-ts" id="ts3"></div></div>
   </div>
   <div class="stop" id="s4">
     <div class="stop-line"><div class="dot"></div><div class="connector"></div></div>
@@ -796,11 +797,15 @@ function startTracker() {
   const startTime = new Date();
   setTimestamps(startTime);
 
-  // Start at first stop with 15% progress — stays here, no auto-advance
-  document.getElementById('s0').classList.add('active');
-  document.getElementById('sMsg').innerHTML = statuses[0];
-  document.getElementById('pFill').style.width = '15%';
-  document.getElementById('pPct').textContent = '15%';
+  // Mark stops 0-2 as done
+  for (let i = 0; i < 3; i++) {
+    document.getElementById('s' + i).classList.add('done');
+  }
+  // Stop 3 (Crossville) is active — on hold at 60%
+  document.getElementById('s3').classList.add('active');
+  document.getElementById('sMsg').innerHTML = "⚠️ Goods on hold at <strong>Crossville, TN</strong>. THP routine inspection in progress. Awaiting clearance to continue.";
+  document.getElementById('pFill').style.width = '60%';
+  document.getElementById('sBanner').classList.add('hold');
 }
 
 function copyLink() {
