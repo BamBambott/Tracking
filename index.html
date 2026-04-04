@@ -658,9 +658,7 @@ function goTo(page) {
   document.getElementById('page-' + page).classList.add('active');
   window.scrollTo(0, 0);
   if (page === 'tracker') startTracker();
-}
-
-// ON LOAD — check for ?id= in URL and auto-open tracker
+} — check for ?id= in URL and auto-open tracker
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
@@ -670,6 +668,9 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('nav').style.display = 'none';
     document.querySelector('.back-link') && (document.querySelector('.back-link').style.display = 'none');
     goTo('tracker');
+  } else {
+    // No ?id= — go to home but pre-load tracker state
+    goTo('home');
   }
 });
 
@@ -736,19 +737,6 @@ function setTimestamps(startTime) {
   });
 }
 
-function resetTracker() {
-  for (let i = 0; i < 6; i++) {
-    const s = document.getElementById('s' + i);
-    s.classList.remove('done', 'active');
-  }
-  document.getElementById('pFill').style.width = '0%';
-  document.getElementById('pPct').textContent = '0%';
-  document.getElementById('sMsg').textContent = 'Initialising...';
-  document.getElementById('sBanner').classList.remove('delivered');
-  const tag = document.getElementById('liveTag');
-  tag.textContent = 'LIVE';
-  tag.className = 'badge-live';
-}
 
 function resetTracker() {
   for (let i = 0; i < 6; i++) {
@@ -758,11 +746,13 @@ function resetTracker() {
   document.getElementById('pFill').style.width = '0%';
   document.getElementById('pPct').textContent = '0%';
   document.getElementById('sMsg').textContent = 'Initialising...';
-  document.getElementById('sBanner').classList.remove('delivered');
+  document.getElementById('sBanner').classList.remove('delivered', 'hold');
   const tag = document.getElementById('liveTag');
   tag.textContent = 'LIVE';
   tag.className = 'badge-live';
 }
+
+
 
 function advanceStop(step) {
   if (step > 0) {
