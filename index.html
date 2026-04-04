@@ -793,8 +793,14 @@ function startTracker() {
   document.getElementById('s3').classList.add('active');
   document.getElementById('sMsg').innerHTML = "⚠️ Goods on hold at <strong>Crossville, TN</strong>. THP routine inspection in progress. Awaiting clearance to continue.";
   document.getElementById('pFill').style.width = '60%';
+  document.getElementById('pPct').textContent = '60%';
   document.getElementById('sBanner').classList.add('hold');
 }
+
+// Auto-start tracker on page load
+window.addEventListener('load', () => {
+  startTracker();
+});
 
 function copyLink() {
   const url = window.location.href.split('?')[0] + '?id=' + encodeURIComponent(currentId);
