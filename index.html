@@ -658,19 +658,17 @@ function goTo(page) {
   document.getElementById('page-' + page).classList.add('active');
   window.scrollTo(0, 0);
   if (page === 'tracker') startTracker();
-} — check for ?id= in URL and auto-open tracker
+}
+
+// ON LOAD — check for ?id= in URL and auto-open tracker
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   if (id) {
     currentId = id;
-    // Hide nav and back button — recipient only sees the tracker
     document.querySelector('nav').style.display = 'none';
     document.querySelector('.back-link') && (document.querySelector('.back-link').style.display = 'none');
     goTo('tracker');
-  } else {
-    // No ?id= — go to home but pre-load tracker state
-    goTo('home');
   }
 });
 
