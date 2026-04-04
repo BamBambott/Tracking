@@ -364,13 +364,13 @@ display: flex; align-items: center; justify-content: center;
 flex-shrink: 0; z-index: 1; position: relative;
 transition: all 0.5s;
 }
-.stop.done .dot { border-color: var(–accent); background: var(–accent); }
+.stop.done .dot { border-color: #2d6b08 !important; background: #2d6b08 !important; box-shadow: 0 0 0 3px rgba(45,107,8,0.15); }
 .stop.active .dot { border-color: var(–accent2); background: #fff3ec; animation: adot 2s infinite; }
 @keyframes adot { 0%,100%{box-shadow:0 0 0 4px rgba(224,90,0,0.15)} 50%{box-shadow:0 0 0 8px rgba(224,90,0,0.05)} }
-.stop.done .dot::after { content:‘✓’; font-size:12px; font-weight:900; color:#fff; }
+.stop.done .dot::after { content:‘✓’; font-size:13px; font-weight:900; color:#fff; line-height:1; }
 .stop.active .dot::after { content:’’; width:10px; height:10px; background:var(–accent2); border-radius:50%; display:block; }
 .connector { width: 3px; flex:1; min-height: 44px; background: var(–border); transition: background 0.6s; margin: 3px 0; border-radius: 2px; }
-.stop.done .connector { background: var(–accent); }
+.stop.done .connector { background: #2d6b08 !important; }
 .stop-body { padding: 0 0 32px; flex: 1; }
 .stop-name { font-family:‘Oxanium’,monospace; font-size:13px; font-weight:700; letter-spacing:0.04em; color:var(–muted); transition:color 0.5s; margin-bottom:3px; }
 .stop.done .stop-name { color: var(–text); }
@@ -785,22 +785,20 @@ function startTracker() {
   const startTime = new Date();
   setTimestamps(startTime);
 
-  // Mark stops 0-2 as done
-  for (let i = 0; i < 3; i++) {
-    document.getElementById('s' + i).classList.add('done');
-  }
-  // Stop 3 (Crossville) is active — on hold at 60%
-  document.getElementById('s3').classList.add('active');
-  document.getElementById('sMsg').innerHTML = "⚠️ Goods on hold at <strong>Crossville, TN</strong>. THP routine inspection in progress. Awaiting clearance to continue.";
-  document.getElementById('pFill').style.width = '60%';
-  document.getElementById('pPct').textContent = '60%';
-  document.getElementById('sBanner').classList.add('hold');
+  // Small delay to ensure DOM is ready after page switch
+  setTimeout(() => {
+    // Mark stops 0-2 as done (green)
+    for (let i = 0; i < 3; i++) {
+      document.getElementById('s' + i).classList.add('done');
+    }
+    // Stop 3 (Crossville) is active — on hold at 60%
+    document.getElementById('s3').classList.add('active');
+    document.getElementById('sMsg').innerHTML = "⚠️ Goods on hold at <strong>Crossville, TN</strong>. THP routine inspection in progress. Awaiting clearance to continue.";
+    document.getElementById('pFill').style.width = '60%';
+    document.getElementById('pPct').textContent = '60%';
+    document.getElementById('sBanner').classList.add('hold');
+  }, 50);
 }
-
-// Auto-start tracker on page load
-window.addEventListener('load', () => {
-  startTracker();
-});
 
 function copyLink() {
   const url = window.location.href.split('?')[0] + '?id=' + encodeURIComponent(currentId);
